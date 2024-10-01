@@ -1,28 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-# Uncomment and modify the following lines according to your application's need.
-
-# Create default admin user
-# Admin.create!(username: 'admin', email: 'admin@example.com', password: 'securepassword')
-
-# Add initial data for dropdowns or constants
-# Status.create!([{ name: 'Active' }, { name: 'Inactive' }])
-
-# Add other necessary seeds below...
-
-
-# Clear the users table before seeding to avoid creating duplicates when you re-seed the database
+# Clear existing records if necessary
 User.destroy_all
+Post.destroy_all
+Friendship.destroy_all
 
-# Create initial users
-User.create([
-  { name: "Alice Smith", email: "alice@example.com", age: 28 },
-  { name: "Bob Jones", email: "bob@example.com", age: 34 },
-  { name: "Carol White", email: "carol@example.com", age: 22 }
-])
+# Create some users with Hogwarts houses
+alex = User.create(name: 'Alex', email: 'alex@example.com', house: 'Slytherin')
+john = User.create(name: 'John', email: 'john@example.com', house: 'Hufflepuff')
+sarah = User.create(name: 'Sarah', email: 'sarah@example.com', house: 'Ravenclaw')
+
+# Create some posts for the users
+Post.create(content: 'First post by Alex', user: alex)
+Post.create(content: 'First post by John', user: john)
+Post.create(content: 'Second post by Alex', user: alex)
+
+# Establish friendships
+Friendship.create(user: alex, friend: john)
+Friendship.create(user: alex, friend: sarah)
+Friendship.create(user: john, friend: sarah)
+
+puts "Seed data created successfully!"
