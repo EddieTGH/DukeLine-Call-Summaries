@@ -11,6 +11,14 @@ module Exampleapp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # Move the middleware configuration here
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'http://localhost:3001' # React app's URL
+        resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options], credentials: true
+      end
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

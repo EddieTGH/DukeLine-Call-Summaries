@@ -76,6 +76,7 @@ GEM
     argon2 (2.3.0)
       ffi (~> 1.15)
       ffi-compiler (~> 1.0)
+    bcrypt (3.1.20)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -98,10 +99,6 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
     erubi (1.12.0)
     ffi (1.16.3)
     ffi-compiler (1.0.1)
@@ -241,11 +238,11 @@ PLATFORMS
 
 DEPENDENCIES
   argon2 (~> 2.3)
+  bcrypt (~> 3.1.7)
   bootsnap
   business_time (~> 0.13.0)
   capybara
   debug
-  dotenv-rails
   holidays (~> 8.6)
   importmap-rails
   jbuilder
