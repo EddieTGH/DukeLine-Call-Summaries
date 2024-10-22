@@ -4,13 +4,13 @@
 # config/routes.rb
 
 Rails.application.routes.draw do
-  resources :friendships
-  resources :posts do
-  # GET http://localhost:3000/posts/1 –– what user
-    get 'user_posts', on: :collection
-  end
-  resources :users
-  namespace :api do
+  resources :users, only: [:create]
+  resources :sessions, only: [:create]
+  delete '/logout', to: 'sessions#destroy'
+  resources :reviews do
+    collection do
+      get 'statistics'
+    end
   end
 end
 
