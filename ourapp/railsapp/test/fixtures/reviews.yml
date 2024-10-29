@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  duration_call: 1
+  presenting_problem: MyText
+  background_information: MyText
+  successful_techniques: MyText
+  unsuccessful_techniques: MyText
+  additional_comments: MyText
+
+two:
+  user: two
+  duration_call: 1
+  presenting_problem: MyText
+  background_information: MyText
+  successful_techniques: MyText
+  unsuccessful_techniques: MyText
+  additional_comments: MyText
