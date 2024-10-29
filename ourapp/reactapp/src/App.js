@@ -1,18 +1,24 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import { UserProvider } from "./components/contexts/UserContext";
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
+import ReviewsPage from './pages/ReviewsPage';
+import CreateReviewPage from './pages/CreateReviewPage';
+import UpdateReviewPage from './pages/UpdateReviewPage';
 
 function App() {
   return (
-    // Wrap the Router in the UserProvider
-    <UserProvider>  
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
-    </UserProvider>
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/reviews/create" element={<CreateReviewPage />} />
+        <Route path="/reviews/update/:id" element={<UpdateReviewPage />} />
+        <Route path="/reviews" element={<ReviewsPage />} />
+        <Route path="/" element={<LoginPage />} />
+      </Routes>
+    </Router>
   );
 }
 
