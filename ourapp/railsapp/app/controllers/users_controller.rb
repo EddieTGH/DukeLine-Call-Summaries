@@ -1,6 +1,9 @@
 # app/controllers/users_controller.rb
 
 class UsersController < ApplicationController
+  # Skip CSRF protection for API endpoints
+  skip_before_action :verify_authenticity_token
+
   # Set up a filter to find the user before show, update, and destroy actions
   before_action :set_user, only: [:show, :update, :destroy]
 
@@ -22,8 +25,9 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
+      # Optionally, log the user in after signup
       session[:user_id] = user.id
-      render json: user, status: :created
+      render json: { message: 'User created successfully' }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end

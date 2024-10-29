@@ -1,6 +1,7 @@
 require 'rack_authenticator'
 class ApplicationController < ActionController::Base
     # config.web_console.whiny_requests = false
+    #skip_before_action :verify_authenticity_token
 
     def set_cors_headers
       #Temporary for local dev, proxy setup will remove the need for this

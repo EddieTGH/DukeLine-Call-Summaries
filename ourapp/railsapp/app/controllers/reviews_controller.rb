@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+    # Skip CSRF check for API calls
+    skip_before_action :verify_authenticity_token
     before_action :authorize_request
     before_action :set_review, only: [:show, :update, :destroy]
   
