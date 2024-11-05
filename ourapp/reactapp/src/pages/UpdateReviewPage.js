@@ -11,6 +11,7 @@ function UpdateReviewPage() {
     successful_techniques: '',
     unsuccessful_techniques: '',
     additional_comments: '',
+    date: '', // Added date field
   });
 
   const { id } = useParams();
@@ -26,7 +27,12 @@ function UpdateReviewPage() {
 
     getReview(id)
       .then((response) => {
-        setFormData(response.data);
+        // Ensure the date is in the correct format for the input field
+        const reviewData = {
+          ...response.data,
+          date: response.data.date ? response.data.date.substring(0, 10) : '',
+        };
+        setFormData(reviewData);
       })
       .catch((error) => {
         console.error('Error fetching review:', error);
@@ -52,6 +58,16 @@ function UpdateReviewPage() {
     <div>
       <h2>Update Review</h2>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Date:</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label>Duration Call:</label>
           <input

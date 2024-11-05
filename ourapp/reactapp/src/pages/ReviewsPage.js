@@ -47,6 +47,7 @@ function ReviewsPage() {
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
+            <p>Date: {review.date}</p>
             <p>Duration Call: {review.duration_call}</p>
             <p>Presenting Problem: {review.presenting_problem}</p>
             <p>Background Information: {review.background_information}</p>

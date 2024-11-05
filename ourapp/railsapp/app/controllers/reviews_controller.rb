@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
     private
   
     def review_params
-      params.permit(:duration_call, :presenting_problem, :background_information, :successful_techniques, :unsuccessful_techniques, :additional_comments)
+      params.permit(:duration_call, :presenting_problem, :background_information, :successful_techniques, :unsuccessful_techniques, :additional_comments, :date)
     end
   end
   

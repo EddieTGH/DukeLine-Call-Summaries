@@ -11,6 +11,7 @@ function CreateReviewPage() {
     successful_techniques: '',
     unsuccessful_techniques: '',
     additional_comments: '',
+    date: '', // Added date field
   });
 
   const userId = localStorage.getItem('userId');
@@ -42,6 +43,16 @@ function CreateReviewPage() {
     <div>
       <h2>Create Review</h2>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Date:</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label>Duration Call:</label>
           <input
