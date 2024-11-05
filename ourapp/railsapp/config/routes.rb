@@ -3,15 +3,23 @@
 # Any additional code should be placed after this line.
 # config/routes.rb
 
+# Rails.application.routes.draw do
+#   resources :friendships
+#   resources :posts do
+#   # GET http://localhost:3000/posts/1 –– what user
+#     get 'user_posts', on: :collection
+#   end
+#   resources :users
+#   namespace :api do
+#   end
+# end
+
 Rails.application.routes.draw do
-  resources :friendships
-  resources :posts do
-  # GET http://localhost:3000/posts/1 –– what user
-    get 'user_posts', on: :collection
+  resources :users, only: [:index, :create, :show] do
+    resources :reviews, only: [:index, :create]
   end
-  resources :users
-  namespace :api do
-  end
+
+  resources :reviews, only: [:show, :update, :destroy]
 end
 
 # !Note from Alex: add this code if you want to work with the Sidekiq Web UI
