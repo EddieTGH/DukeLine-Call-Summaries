@@ -1,5 +1,5 @@
 // src/pages/CreateReviewPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createReview } from '../services/reviewService';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +15,13 @@ function CreateReviewPage() {
 
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to login if not authenticated
+    if (!userId) {
+      navigate('/');
+    }
+  }, [userId, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,12 +42,57 @@ function CreateReviewPage() {
     <div>
       <h2>Create Review</h2>
       <form onSubmit={handleSubmit}>
-        <input type="number" name="duration_call" placeholder="Duration Call" onChange={handleChange} required />
-        <textarea name="presenting_problem" placeholder="Presenting Problem" onChange={handleChange} required />
-        <textarea name="background_information" placeholder="Background Information" onChange={handleChange} />
-        <textarea name="successful_techniques" placeholder="Successful Techniques" onChange={handleChange} />
-        <textarea name="unsuccessful_techniques" placeholder="Unsuccessful Techniques" onChange={handleChange} />
-        <textarea name="additional_comments" placeholder="Additional Comments" onChange={handleChange} />
+        <div>
+          <label>Duration Call:</label>
+          <input
+            type="number"
+            name="duration_call"
+            value={formData.duration_call}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Presenting Problem:</label>
+          <textarea
+            name="presenting_problem"
+            value={formData.presenting_problem}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Background Information:</label>
+          <textarea
+            name="background_information"
+            value={formData.background_information}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Successful Techniques:</label>
+          <textarea
+            name="successful_techniques"
+            value={formData.successful_techniques}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Unsuccessful Techniques:</label>
+          <textarea
+            name="unsuccessful_techniques"
+            value={formData.unsuccessful_techniques}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Additional Comments:</label>
+          <textarea
+            name="additional_comments"
+            value={formData.additional_comments}
+            onChange={handleChange}
+          />
+        </div>
         <button type="submit">Create Review</button>
       </form>
     </div>

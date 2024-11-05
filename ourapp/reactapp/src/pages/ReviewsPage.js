@@ -9,6 +9,12 @@ function ReviewsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Redirect to login if not authenticated
+    if (!userId) {
+      navigate('/');
+      return;
+    }
+
     getReviews(userId)
       .then((response) => {
         setReviews(response.data);
@@ -16,7 +22,7 @@ function ReviewsPage() {
       .catch((error) => {
         console.error('Error fetching reviews:', error);
       });
-  }, [userId]);
+  }, [userId, navigate]);
 
   const handleDelete = (reviewId) => {
     deleteReview(reviewId)
@@ -28,16 +34,25 @@ function ReviewsPage() {
       });
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem('userId');
+    navigate('/');
+  };
+
   return (
     <div>
       <h2>Your Reviews</h2>
+      <button onClick={handleSignOut}>Sign Out</button>
       <button onClick={() => navigate('/reviews/create')}>Create New Review</button>
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
             <p>Duration Call: {review.duration_call}</p>
             <p>Presenting Problem: {review.presenting_problem}</p>
-            {/* Other fields */}
+            <p>Background Information: {review.background_information}</p>
+            <p>Successful Techniques: {review.successful_techniques}</p>
+            <p>Unsuccessful Techniques: {review.unsuccessful_techniques}</p>
+            <p>Additional Comments: {review.additional_comments}</p>
             <button onClick={() => navigate(`/reviews/update/${review.id}`)}>Update</button>
             <button onClick={() => handleDelete(review.id)}>Delete</button>
           </li>

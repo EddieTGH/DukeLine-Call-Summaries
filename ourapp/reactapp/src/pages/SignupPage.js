@@ -1,9 +1,7 @@
 // src/pages/SignupPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signup } from '../services/userService';
 import { useNavigate } from 'react-router-dom';
-
-console.log('Imported signup function:', signup);
 
 function SignupPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +12,11 @@ function SignupPage() {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Clear any existing user session
+    localStorage.removeItem('userId');
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
