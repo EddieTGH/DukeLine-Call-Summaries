@@ -5,7 +5,9 @@ import { getUsers } from '../services/userService';
 
 function LoginPage() {
   const [formData, setFormData] = useState({
-    email: '',
+    caller_id: '',
+    first_name: '',
+    last_name: '',
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,13 +28,17 @@ function LoginPage() {
       .then((response) => {
         const users = response.data;
         const user = users.find(
-          (u) => u.email === formData.email && u.password === formData.password
+          (u) =>
+            u.caller_id === formData.caller_id &&
+            u.first_name === formData.first_name &&
+            u.last_name === formData.last_name &&
+            u.password === formData.password
         );
         if (user) {
           localStorage.setItem('userId', user.id);
           navigate('/reviews');
         } else {
-          setErrorMessage('Invalid email or password');
+          setErrorMessage('Invalid credentials');
         }
       })
       .catch((error) => {
@@ -43,13 +49,33 @@ function LoginPage() {
 
   return (
     <div>
-      <h2>Login Page</h2>
+      <h2>Welcome to DukeLine's Caller Summary Site</h2>
+      <h5>
+        This is where you can submit post-call summaries for DukeLine callers so that other DukeLine
+        coaches can access a caller's profile and summaries of their past calls.
+      </h5>
+      <p>If this is a repeat caller, please login to their profile to continue.</p>
+      <p>If this is a new caller, please create a new profile.</p>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
+          type="text"
+          name="caller_id"
+          placeholder="Enter Caller ID"
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="first_name"
+          placeholder="Enter First Name"
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="last_name"
+          placeholder="Enter Last Name"
           onChange={handleChange}
           required
         />
@@ -60,9 +86,9 @@ function LoginPage() {
           onChange={handleChange}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">Access Existing User Profile</button>
       </form>
-      <button onClick={() => navigate('/signup')}>Go to Signup</button>
+      <button onClick={() => navigate('/signup')}>Create New Caller Profile</button>
     </div>
   );
 }

@@ -106,6 +106,8 @@ function CreateReviewPage() {
         </div>
         <button type="submit">Create Review</button>
       </form>
+      {/* Added "Back to Login" button */}
+      <button onClick={() => navigate('/reviews')}>Back</button>
     </div>
   );
 }

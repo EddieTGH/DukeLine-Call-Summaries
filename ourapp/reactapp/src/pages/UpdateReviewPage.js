@@ -121,6 +121,8 @@ function UpdateReviewPage() {
         </div>
         <button type="submit">Update Review</button>
       </form>
+      {/* Added "Back to Login" button */}
+      <button onClick={() => navigate('/reviews')}>Back</button>
     </div>
   );
 }
