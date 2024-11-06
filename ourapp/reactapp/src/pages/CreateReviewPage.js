@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { createReview } from '../services/reviewService';
 import { useNavigate } from 'react-router-dom';
+import './CreateReviewPage.css'; // Import CSS specific to this page
 
 function CreateReviewPage() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,6 @@ function CreateReviewPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect to login if not authenticated
     if (!userId) {
       navigate('/');
     }
@@ -28,6 +28,12 @@ function CreateReviewPage() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Function to auto-resize textarea
+  const autoResizeTextarea = (e) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
   const handleSubmit = (e) => {
@@ -42,10 +48,12 @@ function CreateReviewPage() {
   };
 
   return (
-    <div>
-      <h2>Create New Call Summary</h2>
+    <div className="container">
+      <header>
+        <h2>Create New Call Summary</h2>
+      </header>
       <form onSubmit={handleSubmit}>
-      <div>
+        <div>
           <label>Date:</label>
           <input
             type="date"
@@ -56,54 +64,13 @@ function CreateReviewPage() {
           />
         </div>
         <div>
-          <label>Duration Call:</label>
+          <label>Duration of Call (minutes):</label>
           <input
             type="number"
             name="duration_call"
             value={formData.duration_call}
             onChange={handleChange}
             required
-          />
-        </div>
-        <div>
-          <label>Presenting Problem:</label>
-          <textarea
-            name="presenting_problem"
-            value={formData.presenting_problem}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Background Information:</label>
-          <textarea
-            name="background_information"
-            value={formData.background_information}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Successful Techniques:</label>
-          <textarea
-            name="successful_techniques"
-            value={formData.successful_techniques}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Unsuccessful Techniques:</label>
-          <textarea
-            name="unsuccessful_techniques"
-            value={formData.unsuccessful_techniques}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Additional Comments:</label>
-          <textarea
-            name="additional_comments"
-            value={formData.additional_comments}
-            onChange={handleChange}
           />
         </div>
         <div>
@@ -126,10 +93,59 @@ function CreateReviewPage() {
             required
           />
         </div>
-        <button type="submit">Create Call Summary</button>
+        <div>
+          <label>Presenting Problem:</label>
+          <textarea
+            name="presenting_problem"
+            value={formData.presenting_problem}
+            onChange={handleChange}
+            onInput={autoResizeTextarea}
+            required
+          />
+        </div>
+        <div>
+          <label>Background Information:</label>
+          <textarea
+            name="background_information"
+            value={formData.background_information}
+            onChange={handleChange}
+            onInput={autoResizeTextarea}
+          />
+        </div>
+        <div>
+          <label>Successful Techniques:</label>
+          <textarea
+            name="successful_techniques"
+            value={formData.successful_techniques}
+            onChange={handleChange}
+            onInput={autoResizeTextarea}
+          />
+        </div>
+        <div>
+          <label>Unsuccessful Techniques:</label>
+          <textarea
+            name="unsuccessful_techniques"
+            value={formData.unsuccessful_techniques}
+            onChange={handleChange}
+            onInput={autoResizeTextarea}
+          />
+        </div>
+        <div>
+          <label>Additional Comments:</label>
+          <textarea
+            name="additional_comments"
+            value={formData.additional_comments}
+            onChange={handleChange}
+            onInput={autoResizeTextarea}
+          />
+        </div>
+        <div className="flex-buttons">
+          <button type="submit">Create Call Summary</button>
+          <button type="button" className="back-button" onClick={() => navigate('/reviews')}>
+            Back
+          </button>
+        </div>
       </form>
-      {/* Added "Back to Login" button */}
-      <button onClick={() => navigate('/reviews')}>Back</button>
     </div>
   );
 }

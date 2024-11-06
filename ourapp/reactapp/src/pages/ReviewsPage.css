@@ -1,0 +1,30 @@
+/* src/pages/ReviewsPage.css */
+
+/* Specific styles for ReviewsPage */
+
+ul {
+    margin-top: 20px;
+  }
+  
+  li {
+    position: relative;
+  }
+  
+  li p {
+    margin: 8px 0;
+  }
+  
+  li .flex-buttons {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  
+  @media (max-width: 600px) {
+    li .flex-buttons {
+      position: static;
+      margin-top: 10px;
+      justify-content: center;
+    }
+  }
+  

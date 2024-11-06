@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { signup } from '../services/userService';
 import { useNavigate } from 'react-router-dom';
+import './SignupPage.css'; // Import CSS specific to this page
 
 function SignupPage() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,6 @@ function SignupPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Clear any existing user session
     localStorage.removeItem('userId');
   }, []);
 
@@ -33,27 +33,38 @@ function SignupPage() {
   };
 
   return (
-    <div>
-      <h2>Signup Page</h2>
+    <div className="container">
+      <header>
+        <h2>Create New Caller Profile</h2>
+      </header>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="caller_id"
-          placeholder="Caller ID"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Signup</button>
+        <div>
+          <label>Caller ID:</label>
+          <input
+            type="text"
+            name="caller_id"
+            placeholder="Caller ID"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="flex-buttons">
+          <button type="submit">Signup</button>
+          <button type="button" className="back-button" onClick={() => navigate('/')}>
+            Back to Login
+          </button>
+        </div>
       </form>
-      {/* Added "Back to Login" button */}
-      <button onClick={() => navigate('/')}>Back to Login</button>
     </div>
   );
 }

@@ -1,0 +1,22 @@
+/* src/pages/UpdateReviewPage.css */
+
+/* Specific styles for UpdateReviewPage */
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  form div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    margin-bottom: 5px;
+  }
+  
+  .flex-buttons {
+    justify-content: flex-end;
+  }
+  

@@ -1,0 +1,23 @@
+/* src/pages/SignupPage.css */
+
+/* Specific styles for SignupPage */
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  form label {
+    margin-bottom: 5px;
+  }
+  
+  .flex-buttons {
+    justify-content: flex-end;
+  }
+  

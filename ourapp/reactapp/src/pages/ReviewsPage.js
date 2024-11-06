@@ -1,23 +1,22 @@
 // src/pages/ReviewsPage.js
 import React, { useState, useEffect } from 'react';
 import { getReviews, deleteReview } from '../services/reviewService';
-import { getUser } from '../services/userService'; // Import getUser to fetch user data
+import { getUser } from '../services/userService';
 import { useNavigate } from 'react-router-dom';
+import './ReviewsPage.css'; // Import CSS specific to this page
 
 function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
-  const [user, setUser] = useState(null); // State to hold user data
+  const [user, setUser] = useState(null);
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect to login if not authenticated
     if (!userId) {
       navigate('/');
       return;
     }
 
-    // Fetch user data
     getUser(userId)
       .then((response) => {
         setUser(response.data);
@@ -26,7 +25,6 @@ function ReviewsPage() {
         console.error('Error fetching user:', error);
       });
 
-    // Fetch reviews
     getReviews(userId)
       .then((response) => {
         setReviews(response.data);
@@ -52,25 +50,25 @@ function ReviewsPage() {
   };
 
   return (
-    <div>
-      <h2>{user ? user.caller_id : ''}'s Call Summaries</h2>
-      <button onClick={handleSignOut}>Sign Out</button>
-      <button onClick={() => navigate('/reviews/create')}>Create New Call Summary</button>
+    <div className="container">
+      <header>
+        <h2>{user ? `Caller ${user.caller_id}'s Call Summaries` : ''}</h2>
+      </header>
+      <div className="flex-buttons">
+        <button onClick={handleSignOut}>Sign Out</button>
+        <button onClick={() => navigate('/reviews/create')}>Create New Call Summary</button>
+      </div>
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
-            <p>Coach's Full Name: {review.coach_full_name}</p>
-            <p>Coach's Email Address: {review.coach_email_address}</p>
-            <p>Date: {review.date}</p>
-            <p>Duration Call: {review.duration_call}</p>
-            <p>Presenting Problem: {review.presenting_problem}</p>
-            {/* Other fields can be uncommented as needed */}
-            {/* <p>Background Information: {review.background_information}</p>
-            <p>Successful Techniques: {review.successful_techniques}</p>
-            <p>Unsuccessful Techniques: {review.unsuccessful_techniques}</p>
-            <p>Additional Comments: {review.additional_comments}</p> */}
-            <button onClick={() => navigate(`/reviews/update/${review.id}`)}>Expand/Update</button>
-            <button onClick={() => handleDelete(review.id)}>Delete</button>
+            <p><strong>Date:</strong> {review.date}</p>
+            <p><strong>Duration of Call:</strong> {review.duration_call} minutes</p>
+            <p><strong>Coach's Name:</strong> {review.coach_full_name}</p>
+            <p><strong>Presenting Problem:</strong> {review.presenting_problem}</p>
+            <div className="flex-buttons">
+              <button onClick={() => navigate(`/reviews/update/${review.id}`)}>Expand/Update</button>
+              <button onClick={() => handleDelete(review.id)}>Delete</button>
+            </div>
           </li>
         ))}
       </ul>
