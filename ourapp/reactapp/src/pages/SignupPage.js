@@ -5,10 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 function SignupPage() {
   const [formData, setFormData] = useState({
-    email: '',
+    caller_id: '',
     password: '',
-    first_name: '',
-    last_name: '',
   });
 
   const navigate = useNavigate();
@@ -38,12 +36,24 @@ function SignupPage() {
     <div>
       <h2>Signup Page</h2>
       <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} required />
-        <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input
+          type="text"
+          name="caller_id"
+          placeholder="Caller ID"
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
         <button type="submit">Signup</button>
       </form>
+      {/* Added "Back to Login" button */}
+      <button onClick={() => navigate('/')}>Back to Login</button>
     </div>
   );
 }

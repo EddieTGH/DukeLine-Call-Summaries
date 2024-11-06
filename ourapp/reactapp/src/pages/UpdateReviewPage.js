@@ -11,6 +11,9 @@ function UpdateReviewPage() {
     successful_techniques: '',
     unsuccessful_techniques: '',
     additional_comments: '',
+    date: '',
+    coach_full_name: '',
+    coach_email_address: '',
   });
 
   const { id } = useParams();
@@ -26,7 +29,12 @@ function UpdateReviewPage() {
 
     getReview(id)
       .then((response) => {
-        setFormData(response.data);
+        // Ensure the date is in the correct format for the input field
+        const reviewData = {
+          ...response.data,
+          date: response.data.date ? response.data.date.substring(0, 10) : '',
+        };
+        setFormData(reviewData);
       })
       .catch((error) => {
         console.error('Error fetching review:', error);
@@ -50,8 +58,18 @@ function UpdateReviewPage() {
 
   return (
     <div>
-      <h2>Update Review</h2>
+      <h2>Update Call Summary</h2>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Date:</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label>Duration Call:</label>
           <input
@@ -103,8 +121,30 @@ function UpdateReviewPage() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Update Review</button>
+        <div>
+          <label>Coach's Full Name:</label>
+          <input
+            type="text"
+            name="coach_full_name"
+            value={formData.coach_full_name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Coach's Email Address:</label>
+          <input
+            type="email"
+            name="coach_email_address"
+            value={formData.coach_email_address}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Update Summary</button>
       </form>
+      {/* Added "Back to Login" button */}
+      <button onClick={() => navigate('/')}>Back</button>
     </div>
   );
 }

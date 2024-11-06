@@ -11,6 +11,9 @@ function CreateReviewPage() {
     successful_techniques: '',
     unsuccessful_techniques: '',
     additional_comments: '',
+    date: '',
+    coach_full_name: '',
+    coach_email_address: '',
   });
 
   const userId = localStorage.getItem('userId');
@@ -40,8 +43,18 @@ function CreateReviewPage() {
 
   return (
     <div>
-      <h2>Create Review</h2>
+      <h2>Create New Call Summary</h2>
       <form onSubmit={handleSubmit}>
+      <div>
+          <label>Date:</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label>Duration Call:</label>
           <input
@@ -93,8 +106,30 @@ function CreateReviewPage() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Create Review</button>
+        <div>
+          <label>Coach's Full Name:</label>
+          <input
+            type="text"
+            name="coach_full_name"
+            value={formData.coach_full_name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Coach's Email Address:</label>
+          <input
+            type="email"
+            name="coach_email_address"
+            value={formData.coach_email_address}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Create Call Summary</button>
       </form>
+      {/* Added "Back to Login" button */}
+      <button onClick={() => navigate('/reviews')}>Back</button>
     </div>
   );
 }
