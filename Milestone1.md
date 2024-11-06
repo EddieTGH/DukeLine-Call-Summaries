@@ -1,4 +1,4 @@
-# 1. Any changes to the original proposal. 
+# MileStone 1
 
 
 # 2. Outline the **three main goals** of your application––these can change throughout the semester but note that these are the criteria that will drive the motivation of your project.
