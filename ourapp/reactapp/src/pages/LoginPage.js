@@ -6,8 +6,6 @@ import { getUsers } from '../services/userService';
 function LoginPage() {
   const [formData, setFormData] = useState({
     caller_id: '',
-    first_name: '',
-    last_name: '',
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
@@ -30,8 +28,6 @@ function LoginPage() {
         const user = users.find(
           (u) =>
             u.caller_id === formData.caller_id &&
-            u.first_name === formData.first_name &&
-            u.last_name === formData.last_name &&
             u.password === formData.password
         );
         if (user) {
@@ -62,20 +58,6 @@ function LoginPage() {
           type="text"
           name="caller_id"
           placeholder="Enter Caller ID"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="first_name"
-          placeholder="Enter First Name"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="last_name"
-          placeholder="Enter Last Name"
           onChange={handleChange}
           required
         />

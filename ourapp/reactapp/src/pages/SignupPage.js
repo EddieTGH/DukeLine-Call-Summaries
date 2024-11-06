@@ -7,8 +7,6 @@ function SignupPage() {
   const [formData, setFormData] = useState({
     caller_id: '',
     password: '',
-    first_name: '',
-    last_name: '',
   });
 
   const navigate = useNavigate();
@@ -42,20 +40,6 @@ function SignupPage() {
           type="text"
           name="caller_id"
           placeholder="Caller ID"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="first_name"
-          placeholder="First Name"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="last_name"
-          placeholder="Last Name"
           onChange={handleChange}
           required
         />
