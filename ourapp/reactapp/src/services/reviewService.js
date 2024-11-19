@@ -21,3 +21,8 @@ export const updateReview = (reviewId, reviewData) => {
 export const deleteReview = (reviewId) => {
   return axios.delete(`${API_URL}/reviews/${reviewId}`);
 };
+
+// New function to get summaries
+export const getSummaries = (userId) => {
+  return axios.get(`${API_URL}/users/${userId}/reviews/summary`);
+};

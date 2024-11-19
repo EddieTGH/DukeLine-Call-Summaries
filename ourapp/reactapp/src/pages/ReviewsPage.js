@@ -1,6 +1,7 @@
 // src/pages/ReviewsPage.js
+
 import React, { useState, useEffect } from 'react';
-import { getReviews, deleteReview } from '../services/reviewService';
+import { getReviews, deleteReview, getSummaries } from '../services/reviewService';
 import { getUser } from '../services/userService';
 import { useNavigate } from 'react-router-dom';
 import './ReviewsPage.css'; // Import CSS specific to this page
@@ -8,6 +9,7 @@ import './ReviewsPage.css'; // Import CSS specific to this page
 function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [user, setUser] = useState(null);
+  const [summaries, setSummaries] = useState(null); // New state for summaries
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
@@ -32,12 +34,30 @@ function ReviewsPage() {
       .catch((error) => {
         console.error('Error fetching reviews:', error);
       });
+
+    // Fetch summaries
+    getSummaries(userId)
+      .then((response) => {
+        setSummaries(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching summaries:', error);
+      });
   }, [userId, navigate]);
 
   const handleDelete = (reviewId) => {
     deleteReview(reviewId)
       .then(() => {
         setReviews(reviews.filter((review) => review.id !== reviewId));
+
+        // Re-fetch summaries after deletion
+        getSummaries(userId)
+          .then((response) => {
+            setSummaries(response.data);
+          })
+          .catch((error) => {
+            console.error('Error fetching summaries:', error);
+          });
       })
       .catch((error) => {
         console.error('Error deleting review:', error);
@@ -58,6 +78,18 @@ function ReviewsPage() {
         <button onClick={handleSignOut}>Sign Out</button>
         <button onClick={() => navigate('/reviews/create')}>Create New Call Summary</button>
       </div>
+
+      {/* Display summaries */}
+      {summaries && (
+        <div className="summaries">
+          <h3>Client Summary</h3>
+          <p><strong>Client Overview:</strong> {summaries.background_information_summary}</p>
+          <p><strong>Client Struggles:</strong> {summaries.presenting_problem_summary}</p>
+          <p><strong>Successful Strategies:</strong> {summaries.successful_techniques_summary}</p>
+          <p><strong>Unsuccessful Strategies:</strong> {summaries.unsuccessful_techniques_summary}</p>
+        </div>
+      )}
+
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>

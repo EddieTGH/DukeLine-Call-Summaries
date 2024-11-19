@@ -16,7 +16,11 @@
 
 Rails.application.routes.draw do
   resources :users, only: [:index, :create, :show] do
-    resources :reviews, only: [:index, :create]
+    resources :reviews, only: [:index, :create] do
+      collection do
+        get 'summary'
+      end
+    end
   end
 
   resources :reviews, only: [:show, :update, :destroy]
