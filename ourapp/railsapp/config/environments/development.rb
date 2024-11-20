@@ -80,6 +80,10 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.hosts << "vcm-44516.vm.duke.edu"
+
+
+
 end
 
 
