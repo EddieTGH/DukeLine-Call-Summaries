@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL_local = 'http://localhost:3000';
+//const API_URL_local = 'http://localhost:3000';
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const getReviews = (userId) => {
@@ -21,4 +21,9 @@ export const updateReview = (reviewId, reviewData) => {
 
 export const deleteReview = (reviewId) => {
   return axios.delete(`${API_URL}/reviews/${reviewId}`);
+};
+
+// New function to get summaries
+export const getSummaries = (userId) => {
+  return axios.get(`${API_URL}/users/${userId}/reviews/summary`);
 };

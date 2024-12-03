@@ -3,28 +3,51 @@
 /* Specific styles for ReviewsPage */
 
 ul {
-    margin-top: 20px;
-  }
-  
-  li {
-    position: relative;
-  }
-  
-  li p {
-    margin: 8px 0;
-  }
-  
+  margin-top: 20px;
+}
+
+li {
+  position: relative;
+}
+
+li p {
+  margin: 8px 0;
+}
+
+li .flex-buttons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+@media (max-width: 600px) {
   li .flex-buttons {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+    position: static;
+    margin-top: 10px;
+    justify-content: center;
   }
-  
-  @media (max-width: 600px) {
-    li .flex-buttons {
-      position: static;
-      margin-top: 10px;
-      justify-content: center;
-    }
-  }
-  
+}
+
+.summaries {
+  background-color: var(--white);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.summaries h3 {
+  margin-top: 0;
+  color: var(--blue);
+}
+
+.summaries p {
+  margin: 8px 0;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
