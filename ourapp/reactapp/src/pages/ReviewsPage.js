@@ -9,7 +9,8 @@ import './ReviewsPage.css'; // Import CSS specific to this page
 function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [user, setUser] = useState(null);
-  const [summaries, setSummaries] = useState(null); // New state for summaries
+  const [summaries, setSummaries] = useState(null); // State for summaries
+  const [error, setError] = useState(null); // State for error handling
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
@@ -19,48 +20,66 @@ function ReviewsPage() {
       return;
     }
 
+    // Fetch user data
     getUser(userId)
       .then((response) => {
         setUser(response.data);
       })
       .catch((error) => {
         console.error('Error fetching user:', error);
+        setError('Error fetching user data.');
       });
 
+    // Fetch reviews
     getReviews(userId)
       .then((response) => {
         setReviews(response.data);
       })
       .catch((error) => {
         console.error('Error fetching reviews:', error);
+        setError('Error fetching reviews.');
       });
 
     // Fetch summaries
     getSummaries(userId)
       .then((response) => {
         setSummaries(response.data);
+        setError(null); // Clear any previous errors
       })
       .catch((error) => {
         console.error('Error fetching summaries:', error);
+        if (error.response && error.response.status === 429) {
+          setError('Rate limit exceeded. Please try again later.');
+        } else {
+          setError('Unable to fetch summaries at this time. Please try again later.');
+        }
       });
   }, [userId, navigate]);
 
   const handleDelete = (reviewId) => {
     deleteReview(reviewId)
       .then(() => {
+        // Remove the deleted review from the state
         setReviews(reviews.filter((review) => review.id !== reviewId));
 
-        // Re-fetch summaries after deletion
+        // Re-fetch summaries after deletion to keep them updated
         getSummaries(userId)
           .then((response) => {
             setSummaries(response.data);
+            setError(null); // Clear any previous errors
           })
           .catch((error) => {
             console.error('Error fetching summaries:', error);
+            if (error.response && error.response.status === 429) {
+              setError('Rate limit exceeded. Please try again later.');
+            } else {
+              setError('Unable to fetch summaries at this time. Please try again later.');
+            }
           });
       })
       .catch((error) => {
         console.error('Error deleting review:', error);
+        setError('Error deleting review.');
       });
   };
 
@@ -72,15 +91,18 @@ function ReviewsPage() {
   return (
     <div className="container">
       <header>
-        <h2>{user ? `Caller ${user.caller_id}'s Call Summaries` : ''}</h2>
+        <h2>{user ? `Caller ${user.caller_id}'s Call Summaries` : 'Call Summaries'}</h2>
       </header>
       <div className="flex-buttons">
         <button onClick={handleSignOut}>Sign Out</button>
         <button onClick={() => navigate('/reviews/create')}>Create New Call Summary</button>
       </div>
 
+      {/* Display error message if any */}
+      {error && <p className="error-message">{error}</p>}
+
       {/* Display summaries */}
-      {summaries && (
+      {summaries && !error && (
         <div className="summaries">
           <h3>Client Summary</h3>
           <p><strong>Client Overview:</strong> {summaries.background_information_summary}</p>

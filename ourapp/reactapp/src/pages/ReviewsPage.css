@@ -33,12 +33,21 @@ ul {
     padding: 15px;
     margin-top: 20px;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .summaries h3 {
     margin-top: 0;
+    color: var(--blue);
   }
   
   .summaries p {
     margin: 8px 0;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
   }
