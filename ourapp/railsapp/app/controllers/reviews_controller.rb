@@ -63,22 +63,26 @@ class ReviewsController < ApplicationController
  
       1. Client Overview:
       Provide a brief overview of who the client is and the client's history. 
-      Use this data and only this data:
+      Use the background info and only the background info below. if there is no data following the colon, then output "Not enough information is provided".
+      background info:
       #{background_infos}
 
       2. Client Struggles:
       Provide a brief summary of what the client has struggled with in the past, highlighting things that were mentioned most often in the beginning of the summary.
-      Use this data and only this data:
+      Use the struggles info and only the struggles info below. if there is no data following the colon, then output "Not enough information is provided".
+      struggles info:
       #{presenting_problems}
 
       3. Successful Strategies:
       Provide a brief summary of what strategies worked for the client, highlighting strategies that were mentioned most often and worked best in the beginning of the summary.
-      Use this data and only this data:
+      Use the successful techniques and only the successful techniques below. if there is no data following the colon, then output "Not enough information is provided".
+      successful techniques:
       #{successful_techniques}
 
       4. Unsuccessful Strategies:
       Provide a brief summary of what strategies didn't work for the client, highlighting strategies that were mentioned most often and were the least effective in the beginning of the summary.
-      Use this data and only this data:
+      Use the unsuccessful techniques and only the unsuccessful techniques below. if there is no data following the colon, then output "Not enough information is provided".
+      unsuccessful techniques:
       #{unsuccessful_techniques}
 
       Provide the summaries numbered as above without repeating the section titles.
