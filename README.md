@@ -90,3 +90,7 @@ This application is a platform designed for **DukeLine**, an anonymous peer ment
 - API calls for reviews and summaries.
 - Functions: `getReviews`, `createReview`, `getReview`, `updateReview`, `deleteReview`, `getSummaries`.
 
+#### Demo Video
+
+https://github.com/EddieTGH/DukeLine-Call-Summaries/raw/main/Dukeline%20Caller%20Summaries%20Demo.mp4
+
