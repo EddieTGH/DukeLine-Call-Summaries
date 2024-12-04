@@ -92,5 +92,6 @@ This application is a platform designed for **DukeLine**, an anonymous peer ment
 
 #### Demo Video
 
-https://github.com/EddieTGH/DukeLine-Call-Summaries/raw/main/Dukeline%20Caller%20Summaries%20Demo.mp4
+https://github.com/user-attachments/assets/453e9889-8028-4960-9aab-93fe41458cc5
+
 
